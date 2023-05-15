@@ -7,7 +7,7 @@
 set -exo pipefail
 MINICONDA=https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
-tmpdir=$(readlink -f $(mktemp -d install.easySFS.XXXX))
+tmpdir=$(readlink -f $(mktemp -d))
 
 cleanup () {
     rm -rf -- "$tmpdir"
@@ -26,11 +26,12 @@ if ! which conda >/dev/null ; then
     fi
 fi
 
-source ~/miniconda3/bin/activate
+# source ~/miniconda3/bin/activate
 
 if ! conda env list | grep '^easySFS '; then
     conda create -n tmp-easySFS -y
     conda install -y -n tmp-easySFS -c conda-forge numpy pandas scipy dadi
+    conda install -y -n tmp-easySFS -c bioconda fastsimcoal2
     conda rename -n tmp-easySFS easySFS
 fi
 
