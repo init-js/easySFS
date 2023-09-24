@@ -24,6 +24,8 @@ with open(projections) as fd:
         line = line.strip()
         if not line:
             continue
+        if line.startswith("#"):
+            print(line)
         if line.startswith("("):
             pop_order += [pop]
             best_proj[pop] = (-1, -1)
@@ -43,7 +45,5 @@ for pop in pop_order:
     print("pop %s value %s" % (pop, best_proj[pop]))
 
 print("")
-print("when using easySFS, pass `--proj=%s`" % (",".join(list_arg),))
-
-
-
+print("when using easySFS, pass:")
+print("  `--proj=%s`" % (",".join(list_arg),))
