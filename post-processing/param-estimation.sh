@@ -51,7 +51,7 @@ for bs_dir in "${BS_RUNS[@]}"; do
 			     -m       `: computes minor site frequency spectrum` \
 			     -0       `: do not take into account monomorphic sites for SFS likelihood computation` \
 			     -C 10    `: minimum observed SFS entry count taken into account in likelihood computation` \
-			     -n 10000 `: number of simulations to perform` \
+			     -n 100000 `: number of simulations to perform` \
 			     -L 40    `: number of loops (ECM cycles) to perform during lhood maximization. Default is 20` \
 			     -s0      `: output DNA as SNP data, and specify maximum no. of SNPs to output (use 0 to output all SNPs)` \
 			     -M       `: perform parameter estimation by max lhood from SFS values between iterations` \

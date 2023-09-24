@@ -124,7 +124,7 @@ do
     # /amy_219_GQ30_minDP15__mac1_maxmiss07_jointMAFpop1_0.obs
     # /amy_219_GQ30_minDP15__mac1_maxmiss07_jointMAFpop2_0.obs
     # /amy_219_GQ30_minDP15__mac1_maxmiss07_jointMAFpop2_1.obs
-    # /amy_219_GQ30_minDP15__mac1_maxmiss07_MSFS.obs
+    # /amy_219_GQ30_minDP15__mac1_maxmiss07_MSFS.obs  ---- This one
     #
     # FIXME Original command doesn't quite fit:
     #   cp ../${PREFIX}_jointDAFpop1_0.obs  ${PREFIX}.bs.${i}_jointDAFpop1_0.obs

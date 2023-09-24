@@ -14,7 +14,7 @@ EASY_SFS_ARGS=(
     -p "$POPS"
     --dtype int
     -a
-    --proj=254,14,14
+    --proj=254,14,14 # FIXME update those --
 )
 
 # ========== BASIC VALIDATION ===========
