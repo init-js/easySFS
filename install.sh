@@ -30,8 +30,8 @@ fi
 
 if ! conda env list | grep '^easySFS '; then
     conda create -n tmp-easySFS -y
-    conda install -y -n tmp-easySFS -c conda-forge numpy pandas scipy dadi
-    conda install -y -n tmp-easySFS -c bioconda fastsimcoal2
+    conda install -y -n tmp-easySFS -c conda-forge numpy=1.24.2 pandas=1.5.3 scipy=1.10.1 dadi=2.3.0
+    conda install -y -n tmp-easySFS -c bioconda fastsimcoal2=27093
     conda rename -n tmp-easySFS easySFS
 fi
 
