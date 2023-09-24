@@ -56,7 +56,20 @@ trap 'rm -rf -- "$workdir" || :' EXIT
     : STEP 3 pick projections, using the output of Step 2 to build arguments
     :
 
-    time ../easySFS.py -i "$VCF" -p "$POPS" -o . "${max_proj_args}"
+    mkdir step3
+    time ../easySFS.py -i "$VCF" -p "$POPS" -o step3 "${max_proj_args}"
+
+    :
+    : STEP 4. re-run with a slightly different set of args
+    :
+    time ../easySFS.py \
+	 -i "$VCF" \
+	 -p "$POPS" \
+	 --dtype int `: data type in output` \
+	 -a          `: keep all SNPs within each rad locus` \
+	 "${max_proj_args[@]}" `: params from step 2` \
+	 -o step4
+
 ) 2>&1 | tee "$workdir/run.log"
 
 
