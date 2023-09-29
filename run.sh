@@ -16,16 +16,29 @@ workdir=$(mktemp -d "easy_sfs.$(date --iso-8601).XXXXXX.tmp")
 # cleanup tmpdir on exit
 trap 'rm -rf -- "$workdir" || :' EXIT
 
+count_sites () {
+    local VCF="${1:?missing VCF}"
+
+    :
+    : Get all lines with genomic data
+    :
+    echo "Site count:" >&2
+    zgrep -v "^#" "$VCF" |  \
+	wc -l | cut -d' ' -f1 | tee "sitecount.txt"
+}
+
 (
     cd "$workdir"
     sha1sum "$VCF" "$POPS" | tee "inputs.sha1sum"
 
+    count_sites "$VCF"
+
     :
     : STEP 1 preview projections '(see projections.txt output)'
     :
-
+    
     STEP_1_OUTPUT="step1_preview_projections.output.txt"
-
+	
     cmd=(
 	../easySFS.py -i "$VCF" -p "$POPS" --preview
     )
@@ -38,11 +51,11 @@ trap 'rm -rf -- "$workdir" || :' EXIT
 	    echo "#   $LINE"
 	done < "inputs.sha1sum"
 	echo "# cmd: ${cmd[@]}"
-
+	    
 	# run command
 	time "${cmd[@]}"
     ) | tee "$STEP_1_OUTPUT"
- 
+    
     :
     : STEP 2 use pick_max_projections to pick the projection values with maximum segregating sites
     :
@@ -65,7 +78,7 @@ trap 'rm -rf -- "$workdir" || :' EXIT
     time ../easySFS.py \
 	 -i "$VCF" \
 	 -p "$POPS" \
-	 --dtype int `: data type in output` \
+	 `: --dtype int : data type in output` \
 	 -a          `: keep all SNPs within each rad locus` \
 	 "${max_proj_args[@]}" `: params from step 2` \
 	 -o step4
@@ -82,3 +95,5 @@ trap 'rm -rf -- "$workdir" || :' EXIT
 output_dir=easy_sfs.$(date +%Y-%m-%d_%H:%M:%S%z)
 mv "$workdir" "$output_dir"
 zip -r "$output_dir".zip "$output_dir"
+rm -rf "$output_dir"
+echo "output in $output_dir.zip"
